@@ -1,0 +1,28 @@
+@font-face {
+  font-family: MainFont;
+  src: url('./assets/fonts/Montserrat.ttf');
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-color: rgb(245, 245, 241);
+  --text-color: rgb(14, 11, 1);
+  --accent-color: rgba(252, 247, 112);
+  --secondary-color: rgba(153, 214, 216);
+  --main-font: MainFont;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-size: 1.6rem;
+  font-family: var(--main-font), serif;
+}
