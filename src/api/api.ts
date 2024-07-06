@@ -9,7 +9,7 @@ export const fetchCharacters = (): Promise<Info<Character[]>> => {
       return response.json();
     })
     .catch((err) => {
-      throw new Error(`Fetch characters failed: ${err.message}`);
+      throw new Error(`Fetch characters failed ${err.message}`);
     });
 };
 
@@ -24,6 +24,6 @@ export const fetchSearchCharacter = (
       return response.json();
     })
     .catch((err) => {
-      throw new Error(`Fetch characters failed: ${err.message}`);
+      throw new Error(`Fetch characters failed ${err.message}`);
     });
 };

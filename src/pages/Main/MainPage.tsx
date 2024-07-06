@@ -5,6 +5,7 @@ import { fetchCharacters, fetchSearchCharacter } from '../../api/api';
 import { ListView } from '../../components/ListView/ListView';
 import { MainPageState } from './MainPage-interface';
 import { LS_KEY } from '../../constants/constants';
+import { Error } from '../../components/Error/Error';
 
 export class MainPage extends Component<Record<string, never>, MainPageState> {
   constructor(props: Record<string, never>) {
@@ -77,15 +78,15 @@ export class MainPage extends Component<Record<string, never>, MainPageState> {
         <section className={styles.search__section}>
           <Search onSubmit={this.onFormSubmit} value={this.state.searchValue} />
         </section>
-        <section className={styles.content__section}>
-          {error ? (
-            <div>Error: {error.message}</div>
-          ) : !isLoaded ? (
-            <div>Loading...</div>
-          ) : (
+        {error ? (
+          <Error message={error.message} />
+        ) : !isLoaded ? (
+          <div>Loading...</div>
+        ) : (
+          <section className={styles.content__section}>
             <ListView data={items} />
-          )}
-        </section>
+          </section>
+        )}
       </main>
     );
   }
