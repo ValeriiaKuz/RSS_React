@@ -1,0 +1,25 @@
+.main_content__wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 1440px;
+  align-items: center;
+  justify-content: center;
+}
+.search__section {
+  position: fixed;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 2rem 6rem;
+  background-color: var(--accent-color);
+  width: 100%;
+  box-shadow: #00000015 0 1px 8px;
+}
+.content__section {
+  margin-top: calc(var(--header-height) + 2rem);
+  padding: 2rem 4rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4rem;
+}
