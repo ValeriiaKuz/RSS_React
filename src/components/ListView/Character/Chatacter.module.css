@@ -1,0 +1,46 @@
+.character_item {
+  display: flex;
+  flex-direction: column;
+  box-shadow: none;
+  transition: box-shadow ease-in 300ms;
+}
+
+.character_image {
+  max-width: 100%;
+}
+.character_info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1rem;
+}
+.character_name {
+  font-size: 1.8rem;
+}
+
+.character_status {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.character_status img {
+  max-height: 2.5rem;
+}
+
+.status_text {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity ease-in 300ms;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .character_item:hover {
+    box-shadow: 0 0.4rem 1.6rem #00000024;
+    color: #333333;
+  }
+  .character_item:hover .status_text {
+    visibility: visible;
+    opacity: 1;
+  }
+}
