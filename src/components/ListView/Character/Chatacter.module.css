@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   box-shadow: none;
+  width: 22%;
   transition: box-shadow ease-in 300ms;
 }
 
@@ -21,7 +22,10 @@
 .character_status {
   display: flex;
   flex-direction: row;
-  gap: 1rem;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  text-transform: capitalize;
 }
 
 .character_status img {
@@ -42,5 +46,29 @@
   .character_item:hover .status_text {
     visibility: visible;
     opacity: 1;
+  }
+}
+
+@media (max-width: 1120px) {
+  .character_item {
+    width: 30%;
+  }
+  .character_name {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 880px) {
+  .character_item {
+    width: 45%;
+  }
+}
+
+@media (max-width: 480px) {
+  .character_item {
+    width: 40%;
+  }
+  .character_name {
+    font-size: 1.4rem;
   }
 }

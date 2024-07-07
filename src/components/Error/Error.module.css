@@ -1,11 +1,11 @@
 .error {
-  margin-top: var(--header-height);
   background: url('../../assets/images/ass.jpg') no-repeat center;
   background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
+  height: 100dvh;
   flex-grow: 1;
 }
 .error_message {

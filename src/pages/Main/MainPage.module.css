@@ -20,7 +20,32 @@
 .content__section {
   margin-top: calc(var(--header-height) + 2rem);
   padding: 2rem 4rem;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 4rem;
+}
+
+.button {
+  outline: none;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  padding: 1rem 4rem;
+  background-color: #ec9191;
+  transition: all ease-in 300ms;
+  margin: 3rem 0;
+}
+
+@media (max-width: 480px) {
+  .content__section {
+    padding: 1rem 2rem;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button:hover {
+    background-color: #e84747;
+  }
 }

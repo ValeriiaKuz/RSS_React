@@ -1,11 +1,12 @@
 import { Component } from 'react';
 import styles from './MainPage.module.css';
 import { Search } from '../../components/Search/Search';
-import { fetchCharacters, fetchSearchCharacter } from '../../api/api';
+import { fetchCharacters } from '../../api/api';
 import { ListView } from '../../components/ListView/ListView';
 import { MainPageState } from './MainPage-interface';
 import { LS_KEY } from '../../constants/constants';
-import { Error } from '../../components/Error/Error';
+import { ComponentWithError } from '../../components/Error/ComponentWithError';
+import { ErrorComponent } from '../../components/Error/ErrorComponent';
 
 export class MainPage extends Component<Record<string, never>, MainPageState> {
   constructor(props: Record<string, never>) {
@@ -15,54 +16,50 @@ export class MainPage extends Component<Record<string, never>, MainPageState> {
       isLoaded: false,
       info: { count: null, pages: null, next: null, prev: null },
       items: [],
-      searchValue: ''
+      clickedError: false
     } as MainPageState;
   }
   componentDidMount() {
     const valueFromLS = localStorage.getItem(LS_KEY);
     if (valueFromLS) {
-      this.setState({ searchValue: valueFromLS });
       this.getSearchedValue(valueFromLS);
     } else {
       this.getAllCharacters();
     }
   }
 
-  getAllCharacters = () => {
-    return fetchCharacters().then(
-      (result) => {
-        this.setState({
-          isLoaded: true,
-          items: result.results,
-          error: null
-        } as MainPageState);
-      },
-      (error) => {
-        this.setState({
-          isLoaded: true,
-          error
-        } as MainPageState);
-      }
-    );
+  getAllCharacters = async () => {
+    try {
+      const result = await fetchCharacters();
+      this.setState({
+        isLoaded: true,
+        items: result.results || [],
+        error: null
+      });
+    } catch (error) {
+      this.setState({
+        isLoaded: true,
+        error: error as Error
+      });
+    }
   };
 
-  getSearchedValue = (value: string) => {
-    return fetchSearchCharacter(value).then(
-      (result) => {
-        this.setState({
-          isLoaded: true,
-          items: result.results,
-          error: null
-        } as MainPageState);
-      },
-      (error) => {
-        this.setState({
-          isLoaded: true,
-          error
-        } as MainPageState);
-      }
-    );
+  getSearchedValue = async (value: string) => {
+    try {
+      const result = await fetchCharacters(value);
+      this.setState({
+        isLoaded: true,
+        items: result.results || [],
+        error: null
+      });
+    } catch (error) {
+      this.setState({
+        isLoaded: true,
+        error: error as Error
+      });
+    }
   };
+
   onFormSubmit = (value: string) => {
     localStorage.setItem(LS_KEY, value);
     if (value) {
@@ -71,20 +68,27 @@ export class MainPage extends Component<Record<string, never>, MainPageState> {
       this.getAllCharacters();
     }
   };
+  throwError = () => {
+    this.setState({ clickedError: true });
+  };
   render() {
     const { error, isLoaded, items } = this.state;
     return (
       <main className={styles.main_content__wrapper}>
         <section className={styles.search__section}>
-          <Search onSubmit={this.onFormSubmit} value={this.state.searchValue} />
+          <Search onSubmit={this.onFormSubmit} />
         </section>
         {error ? (
-          <Error message={error.message} />
+          <ErrorComponent message={error.message} />
         ) : !isLoaded ? (
           <div>Loading...</div>
         ) : (
           <section className={styles.content__section}>
             <ListView data={items} />
+            <button onClick={this.throwError} className={styles.button}>
+              Throw error
+            </button>
+            {this.state.clickedError && <ComponentWithError />}
           </section>
         )}
       </main>

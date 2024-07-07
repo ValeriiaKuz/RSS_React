@@ -3,7 +3,7 @@ import styles from './Error.module.css';
 interface ErrorProps {
   message: string;
 }
-export class Error extends Component<ErrorProps> {
+export class ErrorComponent extends Component<ErrorProps> {
   constructor(props: ErrorProps) {
     super(props);
   }
@@ -11,7 +11,9 @@ export class Error extends Component<ErrorProps> {
     return (
       <div className={styles.error}>
         <p className={styles.error_message}>
-          Something went wrong: {this.props.message}
+          Something went wrong
+          <br />
+          {this.props.message}
         </p>
       </div>
     );

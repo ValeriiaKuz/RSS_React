@@ -5,5 +5,5 @@ export interface MainPageState {
   isLoaded: boolean;
   info: Omit<Info<Character[]>, 'info'>;
   items: Character[];
-  searchValue: string;
+  clickedError: boolean;
 }
