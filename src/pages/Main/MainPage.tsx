@@ -29,6 +29,7 @@ export class MainPage extends Component<Record<string, never>, MainPageState> {
   }
 
   getAllCharacters = async () => {
+    this.setState({ isLoaded: false });
     try {
       const result = await fetchCharacters();
       this.setState({
@@ -45,6 +46,7 @@ export class MainPage extends Component<Record<string, never>, MainPageState> {
   };
 
   getSearchedValue = async (value: string) => {
+    this.setState({ isLoaded: false });
     try {
       const result = await fetchCharacters(value);
       this.setState({
