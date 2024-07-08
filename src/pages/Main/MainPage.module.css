@@ -1,7 +1,7 @@
 .main_content__wrapper {
   display: flex;
   flex-direction: column;
-  max-width: 1440px;
+  min-width: 100vw;
   min-height: 100dvh;
   align-items: center;
   justify-content: center;
@@ -18,7 +18,8 @@
   box-shadow: #00000015 0 1px 8px;
 }
 .content__section {
-  margin-top: calc(var(--header-height) + 2rem);
+  max-width: 1440px;
+  margin: calc(var(--header-height) + 2rem) auto 0;
   padding: 2rem 4rem;
   display: flex;
   flex-direction: row;
