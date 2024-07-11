@@ -17,7 +17,8 @@ module.exports = {
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true }
-    ]
+    ],
+    'no-warning-comments': ['error', { terms: [''], location: 'anywhere' }]
   },
   overrides: [
     { files: ['*.{c,m,}{t,j}s', '*.{t,j}sx'] },
