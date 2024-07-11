@@ -1,16 +1,16 @@
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
 import styles from './Search.module.css';
-import { LS_KEY } from '../../constants/constants';
+import { useSearchQuery } from '../../helpers/hooks';
 interface SearchProps {
   onSubmit: (value: string) => void;
 }
 export const Search: FC<SearchProps> = ({ onSubmit }) => {
   const [inputValue, setInputValue] = useState('');
+  const [searchQuery] = useSearchQuery();
 
   useEffect(() => {
-    const valueFromLS = localStorage.getItem(LS_KEY);
-    setInputValue(valueFromLS ?? '');
-  }, []);
+    setInputValue(searchQuery);
+  }, [searchQuery]);
 
   const onFormSubmit = (e: FormEvent) => {
     e.preventDefault();

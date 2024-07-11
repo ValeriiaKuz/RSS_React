@@ -2,26 +2,25 @@ import { FC, useEffect } from 'react';
 import styles from './MainPage.module.css';
 import { Search } from '../../components/Search/Search';
 import { ListView } from '../../components/ListView/ListView';
-import { LS_KEY } from '../../constants/constants';
 import { ComponentWithError } from '../../components/Error/ComponentWithError';
 import { ErrorComponent } from '../../components/Error/ErrorComponent';
-import { useCharacters } from '../../helpers/hooks';
+import { useCharacters, useSearchQuery } from '../../helpers/hooks';
 
 export const MainPage: FC = () => {
   const { state, getAllCharacters, getSearchedValue, dispatch } =
     useCharacters();
+  const [searchQuery, setSearchQuery] = useSearchQuery();
 
   useEffect(() => {
-    const valueFromLS = localStorage.getItem(LS_KEY);
-    if (valueFromLS) {
-      getSearchedValue(valueFromLS);
+    if (searchQuery) {
+      getSearchedValue(searchQuery);
     } else {
       getAllCharacters();
     }
-  }, [getSearchedValue, getAllCharacters]);
+  }, [getSearchedValue, getAllCharacters, searchQuery]);
 
   const onFormSubmit = (value: string) => {
-    localStorage.setItem(LS_KEY, value);
+    setSearchQuery(value);
     if (value) {
       getSearchedValue(value);
     } else {

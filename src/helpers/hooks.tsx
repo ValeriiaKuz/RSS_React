@@ -1,7 +1,8 @@
-import { useCallback, useReducer } from 'react';
+import { useCallback, useEffect, useReducer, useState } from 'react';
 import { Character, Info } from 'rickmortyapi';
 import { MainPageState } from '../pages/Main/MainPage-interface';
 import { fetchCharacters } from '../api/api';
+import { LS_KEY } from '../constants/constants';
 
 type Action =
   | { type: 'START_REQUEST' }
@@ -66,4 +67,16 @@ export const useCharacters = () => {
     getSearchedValue,
     dispatch
   };
+};
+
+export const useSearchQuery = () => {
+  const [searchQuery, setSearchQuery] = useState<string>(() => {
+    return localStorage.getItem(LS_KEY) || '';
+  });
+  useEffect(() => {
+    return () => {
+      localStorage.setItem(LS_KEY, searchQuery);
+    };
+  }, [searchQuery]);
+  return [searchQuery, setSearchQuery] as const;
 };
