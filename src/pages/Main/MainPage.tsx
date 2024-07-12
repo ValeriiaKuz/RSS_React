@@ -2,13 +2,13 @@ import { FC, useEffect } from 'react';
 import styles from './MainPage.module.css';
 import { Search } from '../../components/Search/Search';
 import { ListView } from '../../components/ListView/ListView';
-import { ComponentWithError } from '../../components/Error/ComponentWithError';
 import { ErrorComponent } from '../../components/Error/ErrorComponent';
 import { useCharacters, useSearchQuery } from '../../helpers/hooks';
+import { Outlet } from 'react-router-dom';
+import { Pagination } from '../../components/Pagination/Pagination';
 
 export const MainPage: FC = () => {
-  const { state, getAllCharacters, getSearchedValue, dispatch } =
-    useCharacters();
+  const { state, getAllCharacters, getSearchedValue } = useCharacters();
   const [searchQuery, setSearchQuery] = useSearchQuery();
 
   useEffect(() => {
@@ -27,11 +27,8 @@ export const MainPage: FC = () => {
       getAllCharacters();
     }
   };
-  const throwError = () => {
-    dispatch({ type: 'SET_CLICKED_ERROR', payload: true });
-  };
 
-  const { error, isLoaded, items, clickedError } = state;
+  const { error, isLoaded, items, info } = state;
   return (
     <main className={styles.main_content__wrapper}>
       <section className={styles.search__section}>
@@ -44,12 +41,10 @@ export const MainPage: FC = () => {
       ) : (
         <section className={styles.content__section}>
           <ListView data={items} />
-          <button onClick={throwError} className={styles.button}>
-            Throw error
-          </button>
-          {clickedError && <ComponentWithError />}
+          <Pagination totalCount={info.count} page={1} />
         </section>
       )}
+      <Outlet />
     </main>
   );
 };

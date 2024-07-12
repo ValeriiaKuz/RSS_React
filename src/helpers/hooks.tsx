@@ -7,15 +7,13 @@ import { LS_KEY } from '../constants/constants';
 type Action =
   | { type: 'START_REQUEST' }
   | { type: 'GET_RESPONSE_OK'; payload: Info<Character[]> }
-  | { type: 'GET_RESPONSE_ERROR'; payload: Error }
-  | { type: 'SET_CLICKED_ERROR'; payload: boolean };
+  | { type: 'GET_RESPONSE_ERROR'; payload: Error };
 
 const initialState: MainPageState = {
   error: null,
   isLoaded: false,
   info: { count: 0, pages: 0, next: null, prev: null },
-  items: [],
-  clickedError: false
+  items: []
 };
 
 const reducer = (state: MainPageState, action: Action): MainPageState => {
@@ -32,8 +30,6 @@ const reducer = (state: MainPageState, action: Action): MainPageState => {
       };
     case 'GET_RESPONSE_ERROR':
       return { ...state, isLoaded: true, error: action.payload };
-    case 'SET_CLICKED_ERROR':
-      return { ...state, clickedError: action.payload };
     default:
       return state;
   }
@@ -74,9 +70,7 @@ export const useSearchQuery = () => {
     return localStorage.getItem(LS_KEY) || '';
   });
   useEffect(() => {
-    return () => {
-      localStorage.setItem(LS_KEY, searchQuery);
-    };
+    localStorage.setItem(LS_KEY, searchQuery);
   }, [searchQuery]);
   return [searchQuery, setSearchQuery] as const;
 };

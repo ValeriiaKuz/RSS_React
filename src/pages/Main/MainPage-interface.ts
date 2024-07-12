@@ -5,5 +5,4 @@ export interface MainPageState {
   isLoaded: boolean;
   info?: Info<Character[]>['info'];
   items: Character[];
-  clickedError: boolean;
 }
