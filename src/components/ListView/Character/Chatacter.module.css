@@ -3,6 +3,7 @@
   flex-direction: column;
   box-shadow: none;
   width: 22%;
+  cursor: pointer;
   transition: box-shadow ease-in 300ms;
 }
 

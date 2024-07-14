@@ -1,21 +1,23 @@
 import { FC } from 'react';
 import { Character as CharacterType } from 'rickmortyapi';
 import styles from './Chatacter.module.css';
-import { getStatusImage } from '../../../helpers/mappers';
-interface CharacterProps {
+import { useLocation, useNavigate } from 'react-router-dom';
+export interface CharacterProps {
   characterData: CharacterType;
 }
 export const CharacterCard: FC<CharacterProps> = ({ characterData }) => {
-  const { image, name, status } = characterData;
+  const { image, name } = characterData;
+  const navigate = useNavigate();
+  const location = useLocation();
+  const onItemClick = () => {
+    navigate(`${location.pathname}` + '/details/' + `${characterData.id}`);
+    window.scroll({ top: 0 });
+  };
   return (
-    <div className={styles.character_item}>
+    <div className={styles.character_item} onClick={onItemClick}>
       <img src={image} alt={name} className={styles.character_image} />
       <div className={styles.character_info}>
         <p className={styles.character_name}>{name}</p>
-        <div className={styles.character_status}>
-          <p className={styles.status_text}>{status}</p>
-          <img src={getStatusImage(status)} alt={status} />
-        </div>
       </div>
     </div>
   );
