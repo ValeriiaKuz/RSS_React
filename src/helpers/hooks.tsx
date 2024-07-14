@@ -49,12 +49,12 @@ export const useCharacters = () => {
     }
   };
 
-  const getAllCharacters = useCallback(async () => {
-    await handleFetch(fetchCharacters);
+  const getAllCharacters = useCallback(async (page?: number) => {
+    await handleFetch(() => fetchCharacters(undefined, page));
   }, []);
 
-  const getSearchedValue = useCallback(async (value: string) => {
-    await handleFetch(() => fetchCharacters(value));
+  const getSearchedValue = useCallback(async (value: string, page?: number) => {
+    await handleFetch(() => fetchCharacters(value, page));
   }, []);
 
   return {
