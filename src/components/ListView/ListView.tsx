@@ -5,6 +5,9 @@ interface ListViewProps {
   data: CharacterType[];
 }
 export const ListView: FC<ListViewProps> = ({ data }) => {
+  if (!data.length) {
+    return <p>No characters there</p>;
+  }
   return (
     <>
       {data.map((character) => {

@@ -14,7 +14,11 @@ export const CharacterCard: FC<CharacterProps> = ({ characterData }) => {
     window.scroll({ top: 0 });
   };
   return (
-    <div className={styles.character_item} onClick={onItemClick}>
+    <div
+      className={styles.character_item}
+      onClick={onItemClick}
+      data-testid="character-card"
+    >
       <img src={image} alt={name} className={styles.character_image} />
       <div className={styles.character_info}>
         <p className={styles.character_name}>{name}</p>
