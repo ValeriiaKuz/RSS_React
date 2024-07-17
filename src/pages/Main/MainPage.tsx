@@ -3,39 +3,34 @@ import styles from './MainPage.module.css';
 import { Search } from '../../components/Search/Search';
 import { ListView } from '../../components/ListView/ListView';
 import { ErrorComponent } from '../../components/Error/ErrorComponent';
-import { useCharacters, useSearchQuery } from '../../helpers/hooks';
+import { useSearchQuery } from '../../helpers/hooks';
 import { Outlet, useNavigate, useOutlet, useParams } from 'react-router-dom';
 import { Pagination } from '../../components/Pagination/Pagination';
 import { Overlay } from '../../components/Overlay/Overlay';
+import { useGetCharactersQuery } from '../../store/api';
 
 export const MainPage: FC = () => {
-  const { state, getAllCharacters, getSearchedValue } = useCharacters();
   const [searchQuery, setSearchQuery] = useSearchQuery();
   const navigate = useNavigate();
   const pageFromParams = Number(useParams<{ page: string }>().page);
   const [currentPage, setCurrentPage] = useState(pageFromParams || 1);
-  const { error, isLoaded, items, info } = state;
+  const { data, error, isLoading } = useGetCharactersQuery({
+    name: searchQuery,
+    page: currentPage
+  });
   const hasOutlet = useOutlet();
 
   useEffect(() => {
     if (searchQuery && currentPage) {
-      getSearchedValue(searchQuery, currentPage);
       navigate(`/search/${currentPage}`);
     } else {
-      getAllCharacters(currentPage);
       navigate(`/${currentPage || ''}`);
     }
-  }, [getSearchedValue, getAllCharacters, searchQuery, currentPage, navigate]);
+  }, [searchQuery, currentPage, navigate]);
 
   const onFormSubmit = (value: string) => {
     setSearchQuery(value);
-    if (value) {
-      getSearchedValue(value);
-      setCurrentPage(1);
-    } else {
-      getAllCharacters();
-      setCurrentPage(1);
-    }
+    setCurrentPage(1);
   };
 
   const handlePrevClick = () => {
@@ -55,19 +50,19 @@ export const MainPage: FC = () => {
         <Search onSubmit={onFormSubmit} />
       </section>
       {error ? (
-        <ErrorComponent message={error.message} />
-      ) : !isLoaded ? (
+        <ErrorComponent />
+      ) : isLoading ? (
         <div>Loading...</div>
-      ) : (
+      ) : data ? (
         <section
           className={`${styles.content__section} ${hasOutlet ? styles.with_outlet : ''}`}
         >
           <div className={styles.main__content}>
             {hasOutlet && <Overlay onOverlayClick={onOverlayClick} />}
-            <ListView data={items} />
-            {info && (
+            {data.results && <ListView data={data.results} />}
+            {data.info && (
               <Pagination
-                totalCount={info.count}
+                totalCount={data.info.count}
                 currentPage={currentPage}
                 onPrevClick={handlePrevClick}
                 onNextClick={handleNextClick}
@@ -80,7 +75,7 @@ export const MainPage: FC = () => {
             </div>
           )}
         </section>
-      )}
+      ) : null}
     </main>
   );
 };
