@@ -6,3 +6,7 @@ export interface MainPageState {
   info?: Info<Character[]>['info'];
   items: Character[];
 }
+
+export interface CharacterWithSelectedProp extends Character {
+  selected: boolean;
+}

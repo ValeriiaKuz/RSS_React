@@ -39,6 +39,12 @@
   transition: opacity ease-in 300ms;
 }
 
+.checkbox {
+  width: 2.4rem;
+  height: 2.4rem;
+  cursor: pointer;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .character_item:hover {
     box-shadow: 0 0.4rem 1.6rem #00000024;

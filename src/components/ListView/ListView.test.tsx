@@ -2,6 +2,8 @@ import { render, screen } from '@testing-library/react';
 import { ListView } from './ListView';
 import { BrowserRouter } from 'react-router-dom';
 import { vi } from 'vitest';
+import { Provider } from 'react-redux';
+import { store } from '../../store/store';
 
 vi.mock('./CharacterCard', () => {
   return () => <div data-testid="character-card">Character Card</div>;
@@ -16,9 +18,11 @@ describe('ListView', () => {
     ];
 
     render(
-      <BrowserRouter>
-        <ListView data={mockData} />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <ListView data={mockData} />
+        </BrowserRouter>
+      </Provider>
     );
 
     const cards = screen.getAllByTestId('character-card');

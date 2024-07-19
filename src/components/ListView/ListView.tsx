@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import { Character as CharacterType } from 'rickmortyapi';
 import { CharacterCard } from './Character/CharacterCard';
+import { CharacterWithSelectedProp } from '../../pages/Main/MainPage-interface.ts';
 interface ListViewProps {
-  data: CharacterType[];
+  data: CharacterWithSelectedProp[];
 }
 export const ListView: FC<ListViewProps> = ({ data }) => {
   if (!data.length) {

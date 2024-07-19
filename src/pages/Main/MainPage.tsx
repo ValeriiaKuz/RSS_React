@@ -8,6 +8,8 @@ import { Outlet, useNavigate, useOutlet, useParams } from 'react-router-dom';
 import { Pagination } from '../../components/Pagination/Pagination';
 import { Overlay } from '../../components/Overlay/Overlay';
 import { useGetCharactersQuery } from '../../store/api';
+import { useAppSelector } from '../../store/hooks.ts';
+import { CharacterWithSelectedProp } from './MainPage-interface.ts';
 
 export const MainPage: FC = () => {
   const [searchQuery, setSearchQuery] = useSearchQuery();
@@ -18,8 +20,15 @@ export const MainPage: FC = () => {
     name: searchQuery,
     page: currentPage
   });
+  const { selectedCharacters } = useAppSelector(
+    (state) => state.selectedCharacters
+  );
   const hasOutlet = useOutlet();
-
+  const items: CharacterWithSelectedProp[] =
+    data?.results?.map((item) => ({
+      ...item,
+      selected: selectedCharacters.includes(item.id)
+    })) || [];
   useEffect(() => {
     if (searchQuery && currentPage) {
       navigate(`/search/${currentPage}`);
@@ -59,7 +68,7 @@ export const MainPage: FC = () => {
         >
           <div className={styles.main__content}>
             {hasOutlet && <Overlay onOverlayClick={onOverlayClick} />}
-            {data.results && <ListView data={data.results} />}
+            {items && <ListView data={items} />}
             {data.info && (
               <Pagination
                 totalCount={data.info.count}
