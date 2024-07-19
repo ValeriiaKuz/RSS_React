@@ -48,7 +48,6 @@
 @media (hover: hover) and (pointer: fine) {
   .character_item:hover {
     box-shadow: 0 0.4rem 1.6rem #00000024;
-    color: #333333;
   }
   .character_item:hover .status_text {
     visibility: visible;

@@ -10,6 +10,7 @@ import { Overlay } from '../../components/Overlay/Overlay';
 import { useGetCharactersQuery } from '../../store/api';
 import { useAppSelector } from '../../store/hooks.ts';
 import { CharacterWithSelectedProp } from './MainPage-interface.ts';
+import { Header } from '../../components/Header/Header.tsx';
 
 export const MainPage: FC = () => {
   const [searchQuery, setSearchQuery] = useSearchQuery();
@@ -54,37 +55,40 @@ export const MainPage: FC = () => {
     navigate(-1);
   };
   return (
-    <main className={styles.main_content__wrapper}>
-      <section className={styles.search__section}>
-        <Search onSubmit={onFormSubmit} />
-      </section>
-      {error ? (
-        <ErrorComponent />
-      ) : isLoading ? (
-        <div>Loading...</div>
-      ) : data ? (
-        <section
-          className={`${styles.content__section} ${hasOutlet ? styles.with_outlet : ''}`}
-        >
-          <div className={styles.main__content}>
-            {hasOutlet && <Overlay onOverlayClick={onOverlayClick} />}
-            {items && <ListView data={items} />}
-            {data.info && (
-              <Pagination
-                totalCount={data.info.count}
-                currentPage={currentPage}
-                onPrevClick={handlePrevClick}
-                onNextClick={handleNextClick}
-              />
-            )}
-          </div>
-          {hasOutlet && (
-            <div className={styles.outlet_content}>
-              <Outlet />
-            </div>
-          )}
+    <>
+      <Header />
+      <main className={styles.main_content__wrapper}>
+        <section className={styles.search__section}>
+          <Search onSubmit={onFormSubmit} />
         </section>
-      ) : null}
-    </main>
+        {error ? (
+          <ErrorComponent />
+        ) : isLoading ? (
+          <div>Loading...</div>
+        ) : data ? (
+          <section
+            className={`${styles.content__section} ${hasOutlet ? styles.with_outlet : ''}`}
+          >
+            <div className={styles.main__content}>
+              {hasOutlet && <Overlay onOverlayClick={onOverlayClick} />}
+              {items && <ListView data={items} />}
+              {data.info && (
+                <Pagination
+                  totalCount={data.info.count}
+                  currentPage={currentPage}
+                  onPrevClick={handlePrevClick}
+                  onNextClick={handleNextClick}
+                />
+              )}
+            </div>
+            {hasOutlet && (
+              <div className={styles.outlet_content}>
+                <Outlet />
+              </div>
+            )}
+          </section>
+        ) : null}
+      </main>
+    </>
   );
 };

@@ -10,3 +10,8 @@ export interface MainPageState {
 export interface CharacterWithSelectedProp extends Character {
   selected: boolean;
 }
+
+export enum Theme {
+  light = 'light',
+  dark = 'dark'
+}
