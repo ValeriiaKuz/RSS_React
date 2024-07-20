@@ -23,7 +23,7 @@
   cursor: pointer;
   padding: 1rem 4rem;
   background-color: var(--secondary-color);
-  transition: all ease-in 300ms;
+  transition: background-color ease-in 300ms;
 }
 
 .input:focus {

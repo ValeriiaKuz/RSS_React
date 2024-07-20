@@ -11,6 +11,7 @@ import { useGetCharactersQuery } from '../../store/api';
 import { useAppSelector } from '../../store/hooks.ts';
 import { CharacterWithSelectedProp } from './MainPage-interface.ts';
 import { Header } from '../../components/Header/Header.tsx';
+import { SelectedItemsSection } from '../../components/SelectedItemsSection/SelectedItemsSection.tsx';
 
 export const MainPage: FC = () => {
   const [searchQuery, setSearchQuery] = useSearchQuery();
@@ -28,7 +29,7 @@ export const MainPage: FC = () => {
   const items: CharacterWithSelectedProp[] =
     data?.results?.map((item) => ({
       ...item,
-      selected: selectedCharacters.includes(item.id)
+      selected: selectedCharacters.some((character) => character.id === item.id)
     })) || [];
   useEffect(() => {
     if (searchQuery && currentPage) {
@@ -88,6 +89,7 @@ export const MainPage: FC = () => {
             )}
           </section>
         ) : null}
+        <SelectedItemsSection />
       </main>
     </>
   );

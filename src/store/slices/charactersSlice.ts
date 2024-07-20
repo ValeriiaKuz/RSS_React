@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Character } from 'rickmortyapi';
 
 export interface SelectedCharactersState {
-  selectedCharacters: number[];
+  selectedCharacters: Character[];
 }
 
 const initialState: SelectedCharactersState = {
@@ -12,12 +13,12 @@ export const selectedCharactersSlice = createSlice({
   name: 'selectedCharacters',
   initialState,
   reducers: {
-    selectCharacter: (state, action: PayloadAction<number>) => {
+    selectCharacter: (state, action: PayloadAction<Character>) => {
       state.selectedCharacters = [...state.selectedCharacters, action.payload];
     },
-    unselectCharacter: (state, action: PayloadAction<number>) => {
+    unselectCharacter: (state, action: PayloadAction<Character>) => {
       state.selectedCharacters = state.selectedCharacters.filter(
-        (characterId) => characterId !== action.payload
+        (character) => character.id !== action.payload.id
       );
     },
     unselectAll: (state) => {

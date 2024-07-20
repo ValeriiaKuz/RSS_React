@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import styles from './Chatacter.module.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../store/hooks.ts';
@@ -11,22 +11,20 @@ export interface CharacterProps {
   characterData: CharacterWithSelectedProp;
 }
 export const CharacterCard: FC<CharacterProps> = ({ characterData }) => {
-  const { image, name } = characterData;
+  const { image, name, selected } = characterData;
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useAppDispatch();
-  const [isSelected, setSelected] = useState(characterData.selected);
   const onItemClick = () => {
     navigate(`${location.pathname}` + '/details/' + `${characterData.id}`);
     window.scroll({ top: 0 });
   };
 
   const onCheckboxChange = () => {
-    setSelected((prevState) => !prevState);
-    if (isSelected) {
-      dispatch(unselectCharacter(characterData.id));
+    if (selected) {
+      dispatch(unselectCharacter(characterData));
     } else {
-      dispatch(selectCharacter(characterData.id));
+      dispatch(selectCharacter(characterData));
     }
   };
   return (
@@ -42,7 +40,7 @@ export const CharacterCard: FC<CharacterProps> = ({ characterData }) => {
           type={'checkbox'}
           onChange={onCheckboxChange}
           onClick={(e) => e.stopPropagation()}
-          checked={isSelected}
+          checked={selected}
           className={styles.checkbox}
         />
       </div>
