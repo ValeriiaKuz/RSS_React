@@ -2,6 +2,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks.ts';
 import styles from './SelectedItemsSection.module.css';
 import { unselectAll } from '../../store/slices/charactersSlice.ts';
 import { useEffect, useState } from 'react';
+import { CSV } from '../CSV/CSV.tsx';
 
 export const SelectedItemsSection = () => {
   const { selectedCharacters } = useAppSelector(
@@ -38,7 +39,9 @@ export const SelectedItemsSection = () => {
           : `${selectedCharacters.length} characters are selected`}
       </span>
       <div className={styles.buttons_wrapper}>
-        <button className={styles.button}>Save</button>
+        <button className={styles.button}>
+          <CSV />
+        </button>
         <button className={styles.button} onClick={onResetClick}>
           Reset all
         </button>
