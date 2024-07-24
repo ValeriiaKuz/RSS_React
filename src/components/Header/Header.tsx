@@ -14,6 +14,7 @@ export const Header = () => {
           className={styles.theme_toggler__checkbox}
           checked={theme === Theme.light}
           onChange={toggleTheme}
+          data-testId={'toggle'}
         />
         <span
           aria-hidden="true"

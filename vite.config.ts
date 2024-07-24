@@ -6,6 +6,13 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
+    include: [
+      'src/**/*.test.ts',
+      'src/**/*.test.tsx',
+      'src/**/*.spec.ts',
+      'src/**/*.spec.tsx'
+    ],
+    exclude: ['**/node_modules/**', '**/dist/**', '**/build/**'],
     setupFiles: 'src/setupTests.ts',
     mockReset: true
   }

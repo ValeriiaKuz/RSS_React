@@ -9,5 +9,11 @@ export const Overlay: FC<OverlayProps> = ({ onOverlayClick }) => {
     e.stopPropagation();
     onOverlayClick();
   };
-  return <div className={styles.overlay} onClick={handleOverlayClick}></div>;
+  return (
+    <div
+      className={styles.overlay}
+      onClick={handleOverlayClick}
+      data-testId={'overlay'}
+    ></div>
+  );
 };

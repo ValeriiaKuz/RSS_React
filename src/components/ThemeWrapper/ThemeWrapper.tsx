@@ -7,7 +7,10 @@ import { Theme } from '../../pages/Main/MainPage-interface.ts';
 export const ThemeWrapper = () => {
   const { theme } = useContext(ThemeContext);
   return (
-    <div className={theme === Theme.light ? styles.light : styles.dark}>
+    <div
+      className={theme === Theme.light ? styles.light : styles.dark}
+      data-testId={'theme'}
+    >
       <Outlet />
     </div>
   );

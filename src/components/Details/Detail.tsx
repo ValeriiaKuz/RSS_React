@@ -18,8 +18,12 @@ export const Detail = () => {
     return <ErrorComponent />;
   }
   return (
-    <div className={styles.detail}>
-      <div className={styles.close} onClick={onCloseClick}></div>
+    <div className={styles.detail} data-testid="detail">
+      <div
+        className={styles.close}
+        onClick={onCloseClick}
+        data-testid="close-button"
+      ></div>
       {data && (
         <>
           <img

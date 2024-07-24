@@ -2,6 +2,7 @@ import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
 import styles from './Search.module.css';
 import { useSearchQuery } from '../../helpers/hooks';
 import { useNavigate } from 'react-router-dom';
+
 interface SearchProps {
   onSubmit: (value: string) => void;
 }

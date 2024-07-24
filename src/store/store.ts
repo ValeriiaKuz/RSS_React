@@ -7,13 +7,18 @@ const rootReducer = combineReducers({
   [rickAndMortyApi.reducerPath]: rickAndMortyApi.reducer,
   selectedCharacters: selectedCharactersReducer
 });
-export const store = configureStore({
-  reducer: rootReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(rickAndMortyApi.middleware as Middleware)
-});
+export type RootState = ReturnType<typeof rootReducer>;
 
-export type RootState = ReturnType<typeof store.getState>;
+export const makeStore = (preloadedState?: Partial<RootState>) => {
+  return configureStore({
+    reducer: rootReducer,
+    preloadedState,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(rickAndMortyApi.middleware as Middleware)
+  });
+};
+export const store = makeStore();
+
 export type AppDispatch = typeof store.dispatch;
 
 setupListeners(store.dispatch);
