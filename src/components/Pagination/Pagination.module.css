@@ -1,0 +1,33 @@
+.paginator {
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+.pages_list {
+  display: flex;
+  gap: 1rem;
+}
+.pages_item {
+  list-style: none;
+}
+.arrow {
+  border: none;
+  background-color: var(--accent-color);
+  opacity: 0.8;
+  cursor: pointer;
+  padding: 1rem;
+  transition: opacity ease-in 300ms;
+}
+.arrow:disabled {
+  cursor: default;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .arrow:hover:not(:disabled) {
+    opacity: 1;
+  }
+}

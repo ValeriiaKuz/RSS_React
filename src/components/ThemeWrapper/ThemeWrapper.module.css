@@ -1,0 +1,18 @@
+.light {
+  --bg-color: rgb(245, 245, 241);
+  --text-color: rgb(14, 11, 1);
+  --accent-color: rgba(252, 247, 112);
+  --secondary-color: rgba(153, 214, 216);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color ease-in 300ms;
+}
+.dark {
+  --bg-color: rgb(37, 39, 49);
+  --text-color: rgb(250, 248, 243);
+  --accent-color: rgb(196, 193, 44);
+  --secondary-color: rgb(82, 213, 217);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color ease-in 300ms;
+}
